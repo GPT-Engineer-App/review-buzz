@@ -4,22 +4,21 @@ import { Box, Container, Heading, Input, VStack, SimpleGrid, Text, Button, useDi
 import { FaSearch, FaStar } from "react-icons/fa";
 import { useEffect, useState } from "react";
 
-const [reviews, setReviews] = useState([]);
-const [searchTerm, setSearchTerm] = useState("");
-
-useEffect(() => {
-  const fetchReviews = async () => {
-    const response = await fetch("https://api.yourcms.com/reviews");
-    const data = await response.json();
-    setReviews(data);
-  };
-
-  fetchReviews();
-}, []);
-
-const filteredReviews = reviews.filter((review) => review.title.toLowerCase().includes(searchTerm.toLowerCase()));
-
 const Index = () => {
+  const [reviews, setReviews] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      const response = await fetch("https://api.yourcms.com/reviews");
+      const data = await response.json();
+      setReviews(data);
+    };
+
+    fetchReviews();
+  }, []);
+
+  const filteredReviews = reviews.filter((review) => review.title.toLowerCase().includes(searchTerm.toLowerCase()));
   return (
     <Container maxW="container.xl" p={4}>
       <VStack spacing={8}>
