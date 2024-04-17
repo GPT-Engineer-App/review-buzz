@@ -1,20 +1,23 @@
 // Complete the Index page component here
 // Use chakra-ui
-import { Box, Container, Heading, Input, VStack, SimpleGrid, Text, Button } from "@chakra-ui/react";
+import { Box, Container, Heading, Input, VStack, SimpleGrid, Text, Button, useDisclosure } from "@chakra-ui/react";
 import { FaSearch, FaStar } from "react-icons/fa";
+import { useEffect, useState } from "react";
 
-const reviews = [
-  { id: 1, title: "The Great Gatsby", category: "Book", rating: 5 },
-  { id: 2, title: "Inception", category: "Movie", rating: 4.5 },
-  { id: 3, title: "The Last of Us", category: "Video Game", rating: 5 },
-  { id: 4, title: "1984", category: "Book", rating: 4 },
-  { id: 5, title: "Interstellar", category: "Movie", rating: 4.5 },
-  { id: 6, title: "God of War", category: "Video Game", rating: 5 },
-  { id: 7, title: "To Kill a Mockingbird", category: "Book", rating: 4.5 },
-  { id: 8, title: "The Dark Knight", category: "Movie", rating: 5 },
-  { id: 9, title: "Red Dead Redemption 2", category: "Video Game", rating: 5 },
-  { id: 10, title: "Brave New World", category: "Book", rating: 4 },
-];
+const [reviews, setReviews] = useState([]);
+const [searchTerm, setSearchTerm] = useState("");
+
+useEffect(() => {
+  const fetchReviews = async () => {
+    const response = await fetch("https://api.yourcms.com/reviews");
+    const data = await response.json();
+    setReviews(data);
+  };
+
+  fetchReviews();
+}, []);
+
+const filteredReviews = reviews.filter((review) => review.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
 const Index = () => {
   return (
@@ -24,7 +27,7 @@ const Index = () => {
           Review Site
         </Heading>
         <Box w="100%">
-          <Input placeholder="Search reviews..." size="lg" leftIcon={<FaSearch />} />
+          <Input placeholder="Search reviews..." size="lg" leftIcon={<FaSearch />} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         </Box>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
           {reviews.map((review) => (
