@@ -29,7 +29,7 @@ const Index = () => {
           <Input placeholder="Search reviews..." size="lg" leftIcon={<FaSearch />} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
         </Box>
         <SimpleGrid columns={{ base: 1, md: 2, lg: 3 }} spacing={5}>
-          {reviews.map((review) => (
+          {filteredReviews.map((review) => (
             <Box key={review.id} p={5} shadow="md" borderWidth="1px">
               <Heading fontSize="xl">{review.title}</Heading>
               <Text mt={4}>{review.category}</Text>
