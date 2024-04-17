@@ -40,7 +40,7 @@ const Index = () => {
                     <FaStar key={i} color={i < review.rating ? "teal.500" : "gray.300"} />
                   ))}
               </Box>
-              <Button mt={4} colorScheme="teal" size="sm">
+              <Button mt={4} colorScheme="teal" size="sm" onClick={() => navigate(`/review/${review.id}`)}>
                 Read More
               </Button>
             </Box>
